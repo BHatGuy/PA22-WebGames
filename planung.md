@@ -109,4 +109,4 @@
 
 # Links etc.
 - <https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas>
-- *TODO HTML Canvas Seite*
+- <https://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html>
