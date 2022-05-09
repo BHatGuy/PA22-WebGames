@@ -56,6 +56,10 @@
 - Flappy bird
 - lunar lander (mal Bsp. zeigen? itch.io?)
 - top-down Autospiel
+- wie tank trouble
+- side-view tank/cannon game
+- Lenkraketen ausweichen
+- Missile command
 
 
 # Am Ende des Kurses
@@ -74,12 +78,13 @@
     - welche Sprache(n)
     - wie viel
     - OOP-Erfahrung?
+- Laptop nötig (haha)
+- Gamepad mitbringen optional
 
 
 # Zweite Mail
-- Installationsanleitung 
-- Laptop nötig (haha)
-- Gamepad mitbringen optional
+- Installationsanleitung
+- schon mal über Ideen nachdenken
 
 
 # Installationsanleitung
@@ -96,7 +101,7 @@
 # Cheat sheets/Dokus
 - Dokus haben
     - Typescript
-    - Canvas (TODO diese Seite raussuchen)
+    - Canvas
     - Browser APIs (in Mozilla Dev Pages?)
 
 
@@ -108,5 +113,6 @@
 
 
 # Links etc.
-- <https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas>
-- <https://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html>
+- [Canvas-Optimierung](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [HTML Canvas Referenz](https://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html)
+- [Offizielle Typescript Cheatsheets](https://www.typescriptlang.org/cheatsheets) (PDFs vorher zusammenführen?)
