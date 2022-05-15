@@ -17,20 +17,23 @@ var width: number;
 var height: number;
 
 function draw() {
+    context.resetTransform();
     context.clearRect(0, 0, width, height);
     // select color
     context.fillStyle = `hsl(${hue}, 50%, 50%)`
 
     // draw polygon/path
+    context.translate(middle.x, middle.y);
+    context.rotate(hue / 360 * 2 * Math.PI);
     context.beginPath();
-    context.moveTo(middle.x, middle.y - r);
-    context.lineTo(middle.x + r_pos, middle.y - r_pos);
-    context.lineTo(middle.x + r, middle.y);
-    context.lineTo(middle.x + r_pos, middle.y + r_pos);
-    context.lineTo(middle.x, middle.y + r);
-    context.lineTo(middle.x - r_pos, middle.y + r_pos);
-    context.lineTo(middle.x - r, middle.y);
-    context.lineTo(middle.x - r_pos, middle.y - r_pos);
+    context.moveTo(0, -r);
+    context.lineTo(r_pos, -r_pos);
+    context.lineTo(r, 0);
+    context.lineTo(r_pos, r_pos);
+    context.lineTo(0, r);
+    context.lineTo(-r_pos, r_pos);
+    context.lineTo(-r, 0);
+    context.lineTo(-r_pos, -r_pos);
     context.fill();
 }
 
@@ -44,7 +47,11 @@ function update(dt: number) {
         v_r = - v_r;
         r_pos = 0.1 * r;
     }
+    // color
     hue = (hue + 1) % 360;
+    // position
+    middle.x = (middle.x + 200 * dt) % width;
+    middle.y = (middle.y + 200 * dt) % height;
 }
 
 function loop(t_ms: number) {
