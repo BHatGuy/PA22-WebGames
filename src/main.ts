@@ -2,8 +2,14 @@ var canvas: HTMLCanvasElement;
 var context: CanvasRenderingContext2D;
 
 // game variables
-var x = 100;
-var v = 200; // pixels per second
+var middle = {
+    x: 400,
+    y: 400
+}
+var r = 100;
+var r_pos = r;
+var v_r = 100; // pixels per second
+var hue = 0;
 
 // system variables
 var last_tick_t = 0;
@@ -11,16 +17,34 @@ var width: number;
 var height: number;
 
 function draw() {
-    context.fillStyle = "gray"; // background color
-    context.fillRect(0, 0, width, height);
-    context.strokeRect(x, 100, 100, 100);
+    context.clearRect(0, 0, width, height);
+    // select color
+    context.fillStyle = `hsl(${hue}, 50%, 50%)`
+
+    // draw polygon/path
+    context.beginPath();
+    context.moveTo(middle.x, middle.y - r);
+    context.lineTo(middle.x + r_pos, middle.y - r_pos);
+    context.lineTo(middle.x + r, middle.y);
+    context.lineTo(middle.x + r_pos, middle.y + r_pos);
+    context.lineTo(middle.x, middle.y + r);
+    context.lineTo(middle.x - r_pos, middle.y + r_pos);
+    context.lineTo(middle.x - r, middle.y);
+    context.lineTo(middle.x - r_pos, middle.y - r_pos);
+    context.fill();
 }
 
 function update(dt: number) {
-    x += v * dt;
-    if (x > width - 200) {
-        x = 100;
+    // radial position
+    r_pos += v_r * dt;
+    if (r_pos > 1.5 * r) {
+        v_r = - v_r;
+        r_pos = 1.5 * r;
+    } else if (r_pos < 0.1 * r) {
+        v_r = - v_r;
+        r_pos = 0.1 * r;
     }
+    hue = (hue + 1) % 360;
 }
 
 function loop(t_ms: number) {
