@@ -89,12 +89,18 @@ function key(e: KeyboardEvent) {
     }
 }
 
+function click(e: MouseEvent) {
+    middle.x = e.offsetX;
+    middle.y = e.offsetY;
+}
+
 function main() {
     canvas = document.getElementById("canvas") as HTMLCanvasElement;
     context = canvas.getContext("2d")!;
     window.addEventListener("keydown", key);
     window.addEventListener("keyup", key);
     window.addEventListener("resize", resized);
+    canvas.addEventListener("click", click);
     resized();
 
     loop(performance.now());
