@@ -15,6 +15,7 @@ var hue = 0;
 var last_tick_t = 0;
 var width: number;
 var height: number;
+var keyStates: Set<string> = new Set();
 
 function draw() {
     context.resetTransform();
@@ -49,9 +50,12 @@ function update(dt: number) {
     }
     // color
     hue = (hue + 1) % 360;
-    // position
-    middle.x = (middle.x + 200 * dt) % width;
-    middle.y = (middle.y + 200 * dt) % height;
+
+    if (!keyStates.has("ArrowUp")) {
+        // position
+        middle.x = (middle.x + 200 * dt) % width;
+        middle.y = (middle.y + 200 * dt) % height;
+    }
 }
 
 function loop(t_ms: number) {
@@ -72,9 +76,24 @@ function resized() {
     canvas.height = height;
 }
 
+function key(e: KeyboardEvent) {
+    switch (e.type) {
+        case "keydown":
+            keyStates.add(e.key);
+            break;
+        case "keyup":
+            keyStates.delete(e.key);
+            break;
+        default:
+            console.warn("Wut?");
+    }
+}
+
 function main() {
     canvas = document.getElementById("canvas") as HTMLCanvasElement;
     context = canvas.getContext("2d")!;
+    window.addEventListener("keydown", key);
+    window.addEventListener("keyup", key);
     window.addEventListener("resize", resized);
     resized();
 
