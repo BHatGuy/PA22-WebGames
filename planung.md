@@ -7,12 +7,13 @@
 
 - Inhalte
     - HTML, Canvas, TS einbinden
-        - canvas autom. maximieren? 
+        - canvas autom. maximieren
     - gameloop
         - dt: ignorieren/benutzen
     - drawing
         - primitives, stroke/fill
         - Farben (unterschiedliche Mögl.)
+        - transforms
     - how to compile, kurz über toolchain
     - input
         - Tastatur
@@ -23,15 +24,14 @@
     - sound
 
 - Extras?
+    - var/const/let
     - mehr Toolchain-Details
         - Alternativen
     - extra drawing
         - sprites
         - Text
-        - transforms
     - TS OOP
-    - resizes handeln, automatisch maximieren
-    - Warnung vor CSS
+    - Warnung vor CSS: don't change canvas size
     - HTML-Elemente einbinden
         - Div für Counter etc.
         - select-Element für Einstellungen
@@ -41,7 +41,7 @@
 
 # Einführung
 - alle haben das Sample-Projekt
-- wir programmieren es von 0 auf vor (bis zu gewissem Punkt?)
+- wir schauen es uns schrittweise an -> diffs zeigen und einmal ausführen
 - es sollte basic type script syntax on the fly rüberbringen -> ref cheat sheet
 - Ideen-Brainstorming (paar Vorschläge)
 

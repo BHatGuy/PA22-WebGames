@@ -1,13 +1,13 @@
 {
-  "name": "squash",
+  "name": "hypnosis",
   "version": "1.0.0",
-  "description": "der drops ist gelutscht",
+  "description": "HYPNOSIS",
   "main": "main.js",
   "scripts": {
     "build": "tsc --noEmit & esbuild src/main.ts --bundle --sourcemap --minify --outfile=build/main.js && cp -r static/* src/main.html build && python3 -m http.server -d build",
     "production": "tsc --noEmit && esbuild src/main.ts --bundle --minify --outfile=build/main.js && cp -r static/* src/main.html build"
   },
-  "author": "Malte",
+  "author": "Malte und Max",
   "license": "UNLICENSED",
   "devDependencies": {
     "esbuild": "^0.14.25"
