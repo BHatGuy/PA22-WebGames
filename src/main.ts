@@ -26,11 +26,18 @@ function loop() {
     window.requestAnimationFrame(loop);
 }
 
+function resized() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+}
+
 function main() {
     canvas = document.getElementById("canvas") as HTMLCanvasElement;
     context = canvas.getContext("2d")!;
-    width = canvas.width;
-    height = canvas.height;
+    window.addEventListener("resize", resized);
+    resized();
 
     loop();
 }
