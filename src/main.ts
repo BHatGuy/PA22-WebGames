@@ -16,6 +16,7 @@ var last_tick_t = 0;
 var width: number;
 var height: number;
 var keyStates: Set<string> = new Set();
+var plop = new Audio('plop.wav');
 
 function draw() {
     context.resetTransform();
@@ -53,8 +54,16 @@ function update(dt: number) {
 
     if (!keyStates.has("ArrowUp")) {
         // position
-        middle.x = (middle.x + 200 * dt) % width;
-        middle.y = (middle.y + 200 * dt) % height;
+        middle.x += 200 * dt;
+        middle.y += 200 * dt;
+        if (middle.x > width) {
+            plop.play();
+            middle.x = 0;
+        }
+        if (middle.y > height) {
+            plop.play();
+            middle.y = 0;
+        }
     }
 }
 
