@@ -2,12 +2,12 @@ all:
     just watch
 
 release: check-types clean
-    ./node_modules/esbuild/bin/esbuild src/main.ts --minify --bundle --outfile=build/main.js 
-    cp src/main.html build
+    esbuild src/main.ts --minify --bundle --outfile=build/main.js 
+    cp src/index.html static/* build
 
 @build: check-types
-    ./node_modules/esbuild/bin/esbuild src/main.ts --bundle --sourcemap --outfile=build/main.js 
-    cp src/main.html build
+    esbuild src/main.ts --bundle --sourcemap --outfile=build/main.js 
+    cp src/index.html static/* build
     echo $(date +%H:%M:%S) "build ready"
 
 @check-types:

@@ -6,10 +6,12 @@ var middle = {
     x: 400,
     y: 400
 }
-var r = 100;
+var r = 50;
 var r_pos = r;
-var v_r = 100; // pixels per second
+var v_r = 150; // pixels per second
 var hue = 0;
+var radii = [r, r, r, r, r, r];
+
 
 // system variables
 var last_tick_t = 0;
@@ -18,53 +20,46 @@ var height: number;
 var keyStates: Set<string> = new Set();
 var plop = new Audio('plop.wav');
 
+
 function draw() {
     context.resetTransform();
     context.clearRect(0, 0, width, height);
     // select color
-    context.fillStyle = `hsl(${hue}, 50%, 50%)`
+    context.fillStyle = `hsl(${hue}, 100%, 50%)`
 
     // draw polygon/path
     context.translate(middle.x, middle.y);
     context.rotate(hue / 360 * 2 * Math.PI);
     context.beginPath();
-    context.moveTo(0, -r);
-    context.lineTo(r_pos, -r_pos);
-    context.lineTo(r, 0);
-    context.lineTo(r_pos, r_pos);
-    context.lineTo(0, r);
-    context.lineTo(-r_pos, r_pos);
-    context.lineTo(-r, 0);
-    context.lineTo(-r_pos, -r_pos);
+    // context.moveTo(0, -radii[0]);
+
+    for (let i = 0; i < radii.length; i++) {
+        let phi = i * 2 * Math.PI / radii.length;
+        let x = radii[i] * Math.cos(phi);
+        let y = radii[i] * Math.sin(phi);
+        context.lineTo(x, y);
+    }
+
     context.fill();
 }
 
 function update(dt: number) {
     // radial position
     r_pos += v_r * dt;
-    if (r_pos > 1.5 * r) {
+    if (r_pos > 4 * r) {
         v_r = - v_r;
-        r_pos = 1.5 * r;
-    } else if (r_pos < 0.1 * r) {
+        r_pos = 4 * r;
+    } else if (r_pos < 0.05 * r) {
         v_r = - v_r;
-        r_pos = 0.1 * r;
+        r_pos = 0.05 * r;
     }
-    // color
-    hue = (hue + 1) % 360;
+    for (let i = 0; i < radii.length; i += 2) {
+        radii[i] = r_pos;
+    }
 
-    if (!keyStates.has("ArrowUp")) {
-        // position
-        middle.x += 200 * dt;
-        middle.y += 200 * dt;
-        if (middle.x > width) {
-            plop.play();
-            middle.x = 0;
-        }
-        if (middle.y > height) {
-            plop.play();
-            middle.y = 0;
-        }
-    }
+    // color
+    hue = (hue + 0.5);
+
 }
 
 function loop(t_ms: number) {
@@ -86,17 +81,15 @@ function resized() {
 }
 
 function key(e: KeyboardEvent) {
-    switch (e.type) {
-        case "keydown":
-            keyStates.add(e.key);
-            break;
-        case "keyup":
-            keyStates.delete(e.key);
-            break;
-        default:
-            console.warn("Wut?");
+    if (e.key == "ArrowUp"){
+        radii.push(r);
+        radii.push(r);
+    } else if (e.key == "ArrowDown") {
+        radii.pop();
+        radii.pop();
     }
 }
+
 
 function click(e: MouseEvent) {
     middle.x = e.offsetX;
@@ -107,7 +100,6 @@ function main() {
     canvas = document.getElementById("canvas") as HTMLCanvasElement;
     context = canvas.getContext("2d")!;
     window.addEventListener("keydown", key);
-    window.addEventListener("keyup", key);
     window.addEventListener("resize", resized);
     canvas.addEventListener("click", click);
     resized();
