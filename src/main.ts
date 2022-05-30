@@ -19,6 +19,7 @@ var width: number;
 var height: number;
 var keyStates: Set<string> = new Set();
 var plop = new Audio('plop.wav');
+var socket: WebSocket = new WebSocket("ws://localhost:3344");
 
 
 function draw() {
@@ -84,9 +85,11 @@ function key(e: KeyboardEvent) {
     if (e.key == "ArrowUp"){
         radii.push(r);
         radii.push(r);
+        socket.send("up");
     } else if (e.key == "ArrowDown") {
         radii.pop();
         radii.pop();
+        socket.send("down");
     }
 }
 
@@ -96,6 +99,17 @@ function click(e: MouseEvent) {
     middle.y = e.offsetY;
 }
 
+function recieve(e: MessageEvent) {
+    if (e.data == "up") {
+        radii.push(r);
+        radii.push(r);
+    } else if (e.data == "down") {
+        radii.pop();
+        radii.pop();
+    }
+    
+}
+
 function main() {
     canvas = document.getElementById("canvas") as HTMLCanvasElement;
     context = canvas.getContext("2d")!;
@@ -103,8 +117,9 @@ function main() {
     window.addEventListener("resize", resized);
     canvas.addEventListener("click", click);
     resized();
-
+    socket.addEventListener("message", recieve)
     loop(performance.now());
+    
 }
 
 
