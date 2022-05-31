@@ -18,6 +18,9 @@ var height: number;
 var keyStates: Set<string> = new Set();
 var plop = new Audio('plop.wav');
 
+var logo = new Image();
+logo.src = "logo.png";
+
 function draw() {
     context.resetTransform();
     context.clearRect(0, 0, width, height);
@@ -37,6 +40,8 @@ function draw() {
     context.lineTo(-r, 0);
     context.lineTo(-r_pos, -r_pos);
     context.fill();
+
+    context.drawImage(logo, 100, 100);
 }
 
 function update(dt: number) {
